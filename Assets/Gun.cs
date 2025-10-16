@@ -33,6 +33,11 @@ public class Gun : MonoBehaviour
         {
             hitSphere.gameObject.SetActive(true);
             hitSphere.position = hitInfo.point;
+
+            if(hitInfo.collider.gameObject)
+            {
+                hitInfo.collider.gameObject.GetComponentInParent<IOnHit>()?.OnHit(hitInfo, ray.direction);
+            }
         }
         else
         {

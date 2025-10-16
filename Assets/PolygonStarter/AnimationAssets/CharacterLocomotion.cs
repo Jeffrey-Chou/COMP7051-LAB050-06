@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 //Based on code from TheKiwiCoder: https://www.youtube.com/watch?v=_I8HsTfKep8&t=1s
 //Standard assets for animation
@@ -9,12 +10,14 @@ using UnityEngine;
 public class CharacterLocomotion : MonoBehaviour
 {
     Animator animator;
+    RigBuilder rig;
     Vector2 input;
     bool isRunning = false;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        rig = GetComponent<RigBuilder>();
     }
 
     // Update is called once per frame
@@ -32,6 +35,7 @@ public class CharacterLocomotion : MonoBehaviour
             isRunning = !isRunning;
 
             animator.SetLayerWeight(1, isRunning ? 0 : 1); //lower aiming animation when running. Aimlayer is on layer 1
+            rig.enabled = !isRunning;
             animator.SetBool("IsRunning", isRunning);
         }
     }
